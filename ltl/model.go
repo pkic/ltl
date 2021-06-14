@@ -10,7 +10,7 @@ type PKI struct {
 	Website     string `yaml:"website" validate:"required,url"`
 
 	// Email or website address to contact privately
-	Contact string `yaml:"contact" validate:"email|url"`
+	Contact string `yaml:"contact" validate:"omitempty,email|url"`
 
 	// Using the Common CA Database
 	CCADB bool `yaml:"ccadb"`
@@ -62,6 +62,6 @@ type Trust struct {
 
 // Source is a wrapper to allow specifing the type of source file
 type Source struct {
-	Type string `yaml:"type"`
+	Type string `yaml:"type" validate:"omitempty,oneof=Website RSS ATOM XML JSON PEM PKCS7"`
 	URL  string `yaml:"url" validate:"required,url"`
 }

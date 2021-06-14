@@ -24,9 +24,9 @@ discussions:
 # Issue tracker
 issues: 
   - url: https://bugzilla.mozilla.org/buglist.cgi?query_format=advanced&product=NSS&resolution=---&component=CA%20Certificate%20Compliance&component=CA%20Certificate%20Root%20Program
-  - type: atom
+  - type: ATOM
     url: https://bugzilla.mozilla.org/buglist.cgi?component=CA%20Certificate%20Compliance&component=CA%20Certificate%20Root%20Program&product=NSS&query_format=advanced&resolution=---&title=Bug%20List&ctype=atom
-  - type: json
+  - type: JSON
     url: https://bugzilla.mozilla.org/rest/bug?include_fields=id,summary,status&component=CA%20Certificate%20Compliance&component=CA%20Certificate%20Root%20Program&product=NSS&resolution=---
 
 # Trust Lists
@@ -42,7 +42,7 @@ trust-lists:
         - name: CABForum
           policies: ["BR", "EVG", "NetSec"]
       list:
-        - type: pem
+        - type: PEM
           url: https://ccadb-public.secure.force.com/mozilla/IncludedRootsPEMTxt?TrustBitsInclude=Websites
 
     - purposes: [S/MIME]
@@ -51,5 +51,5 @@ trust-lists:
         - name: ETSI
           policies: ["NCP", "NCP+", "LCP", "LCP+", "QCP"]
       list:
-        - type: pem
+        - type: PEM
           url: https://ccadb-public.secure.force.com/mozilla/IncludedRootsPEMTxt?TrustBitsInclude=Email
