@@ -1,4 +1,7 @@
 name: Android
+description:
+
+website: http://www.android.com
 
 # Using the Common CA Database
 ccadb: false
