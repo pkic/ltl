@@ -1,0 +1,55 @@
+name: Mozilla
+description:
+  Mozilla’s CA Certificate Program governs inclusion of root certificates in Network Security Services (NSS),
+  a set of open source libraries designed to support cross-platform development of security-enabled client and
+  server applications. The NSS root certificate store is not only used in Mozilla products such as the Firefox
+  browser, but is also used by other companies in a variety of products. The program is overseen by the module
+  owner and peers of the CA Certificates Module; the policy itself is overseen by the module owner and peers of
+  the CA Certificate Policy Module.
+
+# Contact for support/questions
+website: https://wiki.mozilla.org/CA
+
+# Using the Common CA Database
+ccadb: true
+
+# Program policy requirements
+requirements: 
+  - url: https://www.mozilla.org/en-US/about/governance/policies/security-group/certs/policy/
+
+# Mailing list or forum
+discussions: 
+  - url: https://groups.google.com/u/1/a/mozilla.org/g/dev-security-policy
+
+# Issue tracker
+issues: 
+  - url: https://bugzilla.mozilla.org/buglist.cgi?query_format=advanced&product=NSS&resolution=---&component=CA%20Certificate%20Compliance&component=CA%20Certificate%20Root%20Program
+  - type: ATOM
+    url: https://bugzilla.mozilla.org/buglist.cgi?component=CA%20Certificate%20Compliance&component=CA%20Certificate%20Root%20Program&product=NSS&query_format=advanced&resolution=---&title=Bug%20List&ctype=atom
+  - type: JSON
+    url: https://bugzilla.mozilla.org/rest/bug?include_fields=id,summary,status&component=CA%20Certificate%20Compliance&component=CA%20Certificate%20Root%20Program&product=NSS&resolution=---
+
+# Trust Lists
+trust-lists:
+  info: https://wiki.mozilla.org/CA/Included_Certificates
+  policy: https://wiki.mozilla.org/CA/FAQ#Can_I_use_Mozilla.27s_set_of_CA_certificates.3F
+  trust:
+    - purposes: [TLS]
+      audit: 
+        - name: WebTrust
+        - name: ETSI
+          policies: ["DV", "EV", "QWAC"]
+        - name: CABForum
+          policies: ["BR", "EVG", "NetSec"]
+      list:
+        - type: PEM
+          url: https://ccadb-public.secure.force.com/mozilla/IncludedRootsPEMTxt?TrustBitsInclude=Websites
+
+    - purposes: [S/MIME]
+      audit: 
+        - name: WebTrust
+        - name: ETSI
+          policies: ["NCP", "NCP+", "LCP", "LCP+", "QCP"]
+      list:
+        - type: PEM
+          url: https://ccadb-public.secure.force.com/mozilla/IncludedRootsPEMTxt?TrustBitsInclude=Email

@@ -1,0 +1,46 @@
+name: Microsoft
+description:
+  The Microsoft Root Certificate Program supports the distribution of root certificates, enabling customers to trust Windows products.
+
+# Contact for support/questions
+website: https://aka.ms/RootCert
+
+# Using the Common CA Database
+ccadb: true
+
+# Program policy requirements
+requirements: 
+  - url: https://aka.ms/RootCert
+  - url: https://aka.ms/auditreqs
+
+# Trust Lists
+trust-lists:
+  info: https://docs.microsoft.com/en-us/security/trusted-root/participants-list
+  policy: https://wiki.mozilla.org/CA/FAQ#Can_I_use_Mozilla.27s_set_of_CA_certificates.3F
+  trust:
+    - purposes: [TLS]
+      audit: 
+        - name: WebTrust
+        - name: ETSI
+          policies: ["DVCP", "OVCP", "EVCP", "PTR-BR", "QCP-w"]
+        - name: CABForum
+          policies: ["BR", "EVG", "NetSec"]
+      list:
+
+    - purposes: [S/MIME]
+      audit: 
+        - name: WebTrust
+          policies: ["CA"]
+        - name: ETSI
+          policies: ["LCP","NCP","NCP+","QCP-n","QCP-n-qscd","QCP-l","QCP-l-qscd"]
+      list:
+
+    - purposes: [Code-Signing]
+      audit: 
+        - name: WebTrust
+          policies: ["CA", "Code-Signing"]
+        - name: ETSI
+          policies: ["QCP-w","LCP","NCP","NCP+","QCP-n","QCP-n-qscd","QCP-l","QCP-l-qscd"]
+      list:
+        - type: PEM
+          url: https://ccadb-public.secure.force.com/microsoft/IncludedRootsPEMTxtForMSFT?TrustBitsInclude=Code%20Signing

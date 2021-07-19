@@ -1,0 +1,30 @@
+name: Apple
+description:
+  Apple uses public key infrastructure (PKI) to secure and enhance the experience for Apple users. Apple products, including our web browser Safari and Mail.app, use a common store for root certificates.
+
+website: https://www.apple.com/certificateauthority/ca_program.html
+
+# The mail address below is publicly published on the above website
+contact: certificate-authority-program@apple.com
+
+# Using the Common CA Database
+ccadb: true
+
+# Program policy requirements
+requirements: 
+  - url: https://www.apple.com/certificateauthority/ca_program.html
+
+# Trust Lists
+trust-lists:
+  trust:
+    - purposes: [TLS]
+      audit: 
+        - name: WebTrust
+      list:
+        # iOS
+        - type: HTML
+          url: https://support.apple.com/en-us/HT204132
+
+        # OSX
+        - type: HTML
+          url: http://support.apple.com/kb/HT6005
