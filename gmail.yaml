@@ -1,0 +1,13 @@
+name: Gmail
+description:
+website: https://www.google.com/gmail/about/
+
+ccadb: false
+
+# Trust Lists
+trust-lists:
+  trust:
+    - purposes: [S/MIME]
+      list:
+        - type: HTML
+          url: https://support.google.com/a/answer/7448393?hl=en
