@@ -1,0 +1,12 @@
+name: Android
+
+# Using the Common CA Database
+ccadb: false
+
+# Trust Lists
+trust-lists:
+  trust:
+    - purposes: [TLS]
+      list:
+        - type: HTML
+          url: https://android.googlesource.com/platform/system/ca-certificates/+/master/files/

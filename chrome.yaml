@@ -1,0 +1,27 @@
+name: Chrome
+description: 
+  When Chrome presents the connection to a website as secure, Chrome is making a statement to its users about
+  the security properties of that connection. Because of the CA's critical role in upholding those properties,
+  Chrome must ensure the CAs who issue certificates are operated in a consistent and trustworthy manner.
+
+website: http://g.co/chrome/root-policy
+
+# The Chrome root store policy contact mail address is publicly published on the above website.
+contact: chrome-root-authority-program@google.com
+
+# Using the Common CA Database
+ccadb: true
+
+# Program policy requirements
+requirements: 
+  - url: http://g.co/chrome/root-policy
+
+# Trust Lists
+trust-lists:
+  trust:
+    - purposes: [TLS]
+      audit: 
+        - name: WebTrust
+      list:
+        - type: HTML
+          url: http://g.co/chrome/root-store
