@@ -1,0 +1,28 @@
+name: Adobe
+description:
+  The Adobe Approved Trust List is a program that allows millions of users around the world to create digital
+  signatures that are trusted whenever the signed document is opened in Adobe® Acrobat® or Reader® software. 
+  Essentially, both Acrobat and Reader have been programmed to reach out to a web page to periodically download
+  a list of trusted "root" digital certificates. Any digital signature created with a credential that can trace 
+  a relationship ("chain") back to the high-assurance, trustworthy certificates on this list is trusted by 
+  Acrobat and Reader.
+
+website: https://helpx.adobe.com/acrobat/kb/approved-trust-list2.html
+
+# The mail address below is publicly published on the above website.
+contact: aatl-info@adobe.com
+
+# Using the Common CA Database
+ccadb: false
+
+# Program policy requirements
+requirements:
+  - url: https://helpx.adobe.com/acrobat/kb/approved-trust-list2.html#AATLtechnicalrequirements
+
+# Trust Lists
+trust-lists:
+  trust:
+    - purposes: [PAdES]
+      list:
+        - type: HTML
+          url: https://helpx.adobe.com/acrobat/kb/approved-trust-list1.html
