@@ -6,8 +6,11 @@ import (
 
 type PKI struct {
 	Name        string `yaml:"name" validate:"required"`
-	Description string `yaml:"description" validate:"required"`
-	Website     string `yaml:"website" validate:"required,url"`
+	Description string `yaml:"description"`
+
+	// A link to the trusted list program or vendor/product when no such
+	// dedicated website exists.
+	Website string `yaml:"website" validate:"required,url"`
 
 	// Email or website address to contact privately
 	Contact string `yaml:"contact" validate:"omitempty,email|url"`
@@ -41,7 +44,7 @@ type TrustLists struct {
 	Info   string `yaml:"info"`
 	Policy string `yaml:"policy"`
 
-	Trust []Trust `yaml:"trust" validate:"dive"`
+	Trust []Trust `yaml:"trust" validate:"omitempty,dive"`
 }
 
 // Trust links to a file containing the CA certificates trusted by this PKI
@@ -62,6 +65,6 @@ type Trust struct {
 
 // Source is a wrapper to allow specifing the type of source file
 type Source struct {
-	Type string `yaml:"type" validate:"omitempty,oneof=Website RSS ATOM XML JSON PEM PKCS7"`
+	Type string `yaml:"type" validate:"omitempty,oneof=HTML RSS ATOM XML JSON PEM PKCS7"`
 	URL  string `yaml:"url" validate:"required,url"`
 }
