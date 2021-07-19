@@ -6,6 +6,12 @@ website: http://www.android.com
 # Using the Common CA Database
 ccadb: false
 
+# Issue tracker
+issues: 
+  #  There is no dedicated component for relevant issues, this is a good place to start.
+  - url: https://issuetracker.google.com/issues?q=android%20status:(open%20%7C%20new%20%7C%20assigned%20%7C%20accepted%20%7C%20verified)%20%22root%20certificate%22
+
+
 # Trust Lists
 trust-lists:
   trust:
