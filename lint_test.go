@@ -56,7 +56,7 @@ func TestDecode(t *testing.T) {
 		case ".go", ".mod", ".sum", ".md", "":
 			return nil
 		default:
-			t.Errorf("unxpected file type: %s", s)
+			t.Errorf("unexpected file type: %s", s)
 		}
 
 		return nil
