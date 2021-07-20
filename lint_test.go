@@ -4,6 +4,7 @@ import (
 	"io/fs"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/go-playground/validator"
@@ -23,7 +24,7 @@ func TestDecode(t *testing.T) {
 		}
 
 		// Skip hidden files and directories such as .git
-		if s[0:1] == "." {
+		if s[0:1] == "." || strings.HasPrefix(s, "ltl.") {
 			return nil
 		}
 
