@@ -1,6 +1,6 @@
 name: Apple
 description:
-  Apple uses public key infrastructure (PKI) to secure and enhance the experience for Apple users. Apple products, including our web browser Safari and Mail.app, use a common store for root certificates.
+  Apple uses public key infrastructure (PKI) to secure and enhance the experience for Apple users. Apple products, including the web browser Safari and Mail.app, use a common store for root certificates.
 
 website: https://www.apple.com/certificateauthority/ca_program.html
 
