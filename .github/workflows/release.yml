@@ -4,10 +4,12 @@ on:
   push:
     branches:
       - "main"
-
+    paths-ignore:
+      - '*.md'
 jobs:
 
-  build:
+  publish:
+    name: Publish
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -26,9 +28,13 @@ jobs:
       run: go run .
 
     - name: Tag next version
+      id: version
       run: |
         tag=$(git describe --abbrev=0 --tags $(git rev-list --tags --max-count=1) | awk -F. -v OFS=. '{$NF++;print}')
+        echo "::set-output name=tag::$tag"
+        echo Adding tag $tag
         git tag $tag
+        git push origin $tag
 
     - name: Release notes
       run: |
@@ -40,7 +46,7 @@ jobs:
       with:
         name: List of Trust Lists
         body_path: release-notes.txt
-        fail_on_unmatched_files: true
+        tag: ${{ steps.version.outputs.tag }}
         files: |
           ltl.yaml
           ltl.json
