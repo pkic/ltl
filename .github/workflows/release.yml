@@ -23,22 +23,15 @@ jobs:
     - name: Build
       run: go run .
 
-    - name: 'Get Previous tag'
-      id: previoustag
-      uses: "WyriHaximus/github-action-get-previous-tag@v1"
-
-    - name: 'Get next minor version'
-      id: semvers
-      uses: "WyriHaximus/github-action-next-semvers@v1"
-      with:
-        version: ${{ steps.previoustag.outputs.tag }}
+    - name: Get next version
+      id: version
+      run: echo "::set-output name=TAG::$(git describe --abbrev=0 --tags $(git rev-list --tags --max-count=1) | awk -F. -v OFS=. '{$NF++;print}')"
 
     - name: Release
       uses: softprops/action-gh-release@v1
-      if: startsWith(github.ref, 'refs/tags/')
       with:
         name: List of Trust Lists
-        tag: ${{ steps.semvers.outputs.patch }}
+        tag: ${{ steps.version.outputs.TAG }}
         fail_on_unmatched_files: true
         files: |
           ltl.yaml
