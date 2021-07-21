@@ -29,7 +29,6 @@ jobs:
       run: |
         tag=$(git describe --abbrev=0 --tags $(git rev-list --tags --max-count=1) | awk -F. -v OFS=. '{$NF++;print}')
         git tag $tag
-        git push origin $tag
 
     - name: Release notes
       run: |
