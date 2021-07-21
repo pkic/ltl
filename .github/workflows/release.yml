@@ -26,21 +26,18 @@ jobs:
       run: go run .
 
     - name: Tag next version
-      if: "!startsWith(github.ref, 'refs/tags/')"
       run: |
         tag=$(git describe --abbrev=0 --tags $(git rev-list --tags --max-count=1) | awk -F. -v OFS=. '{$NF++;print}')
         git tag $tag
         git push origin $tag
 
     - name: Release notes
-      if: startsWith(github.ref, 'refs/tags/')
       run: |
         git log $(git describe --abbrev=0 --tags $(git rev-list --tags --max-count=2) | tail -1)..HEAD --pretty=format:"%h - %an: %s" > release-notes.txt
         cat release-notes.txt
 
     - name: Release
       uses: softprops/action-gh-release@v1
-      if: startsWith(github.ref, 'refs/tags/')
       with:
         name: List of Trust Lists
         body_path: release-notes.txt
