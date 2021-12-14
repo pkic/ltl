@@ -1,0 +1,18 @@
+name: Oracle Java
+description: |
+  The Oracle Java Root Certificate program includes widely recognized Certificate Authorities with a significant customer base and global reach.
+
+website: https://www.oracle.com/java/technologies/javase/carootcertsprogram.html
+
+# Using the Common CA Database
+ccadb: false
+
+# Trust Lists
+trust-lists:
+  trust:
+    - purposes: [TLS,S/MIME,Code-Signing,Time-Stamping]
+      audit: 
+        - name: WebTrust
+      list:
+        - type: HTML
+          url: https://github.com/openjdk/jdk/tree/master/make/data/cacerts
