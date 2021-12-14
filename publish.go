@@ -21,7 +21,7 @@ func main() {
 
 	validate := validator.New()
 
-	err := filepath.WalkDir("./", func(s string, d fs.DirEntry, e error) error {
+	err := filepath.WalkDir("./data", func(s string, d fs.DirEntry, e error) error {
 		if e != nil {
 			return e
 		}
