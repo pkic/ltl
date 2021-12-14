@@ -1,0 +1,16 @@
+name: Wi-Fi Alliance
+description: |
+  In the Wi-Fi CERTIFIED Passpoint® certification program, mobile devices use Online Sign-Up (OSU) to accomplish registration and credential provisioning to obtain secure network access. Each Service Provider network has an OSU Server, an AAA Server, and access to a certificate authority (CA). A CA is a collection of computer hardware, software, and the people who operate it. The CA is known by two attributes: its name and its public key. One of the requirements for a mobile device and the hotspot to trust each other is that the OSU Server shall hold a certificate signed by a Certificate Authority whose root certificate is issued by one of the CAs authorized by Wi-Fi Alliance, and that these trusted root CA certificates are installed on the mobile device.
+
+website: https://www.wi-fi.org/certification/certificate-authority-vendors
+
+# Using the Common CA Database
+ccadb: false
+
+# Trust Lists
+trust-lists:
+  trust:
+    - purposes: [Wi-Fi]
+      list:
+        - type: HTML
+          url: https://www.wi-fi.org/certification/certificate-authority-vendors
