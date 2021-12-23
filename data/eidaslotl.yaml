@@ -1,0 +1,41 @@
+name: eIDAS List of Trusted Lists
+description: |
+  The Member States of the European Union and European Economic Area publish trusted lists of qualified trust service providers in accordance with the eIDAS Regulation.
+  The European Commission publishes a list of these trusted lists, the List of Trusted Lists (LOTL).
+
+website: https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32014R0910&from=EN
+
+# The mail address below is publicly published on the above website
+contact: 
+
+# Using the Common CA Database
+ccadb: false
+
+# Program policy requirements
+requirements: 
+  - url: https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32014R0910&from=EN
+  - url: https://portal.etsi.org/TB-SiteMap/ESI/Trust-Service-Providers
+
+# Trust Lists
+trust-lists:
+  trust:
+    # The purpose is indicated in the trust list these can be qualified or non-qualified:
+    # - certificate for electronic signatures
+    # - certificate for electronic seals
+    # - certificate for web site authentication
+    # - validation of qualified electronic signatures
+    # - validation of qualified electronic seals
+    # - preservation of qualified electronic signatures
+    # - preservation of qualified electronic seals
+    # - electronic time stamps
+    # - electronic registered delivery
+    - purposes: [TLS, S/MIME, Code-Signing, Time-Stamping]
+      audit: 
+        - name: eIDAS
+        - name: ETSI
+      list:
+        - type: HTML
+          url: https://esignature.ec.europa.eu/efda/tl-browser/
+        - type: XML
+          url: https://ec.europa.eu/tools/lotl/eu-lotl.xml
+
