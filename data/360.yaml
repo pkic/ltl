@@ -1,0 +1,25 @@
+name: 360 Browser
+description: 
+  360 is a security company in China and has always been working on the secure development of the Internet.
+
+website: https://caprogram.360.cn/
+
+# The mail address below is publicly published on the above website
+contact: caprogram@360.cn
+
+# Using the Common CA Database
+ccadb: false
+
+# Program policy requirements
+requirements: 
+  - url: https://caprogram.360.cn/#strategy
+
+# Trust Lists
+trust-lists:
+  trust:
+    - purposes: [TLS]
+      audit: 
+        - name: WebTrust
+      list:
+        - type: HTML
+          url: https://caprogram.360.cn/#trust
