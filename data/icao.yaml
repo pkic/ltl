@@ -1,0 +1,22 @@
+name: ICAO Public Key Directory (PKD)
+description: 
+  The ICAO Public Key Directory (PKD) is a central repository for exchanging the information required to authenticate ePassports.
+
+website: https://www.icao.int/Security/FAL/PKD/
+
+# The mail address below is publicly published on the above website
+contact: 
+
+# Using the Common CA Database
+ccadb: false
+
+# Program policy requirements
+requirements: 
+
+# Trust Lists
+trust-lists:
+  trust:
+    - purposes: [ePassport]
+      list:
+        - type: HTML
+          url: https://www.icao.int/Security/FAL/PKD/Pages/ICAO-Master-List.aspx
