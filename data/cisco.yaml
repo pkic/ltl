@@ -1,0 +1,28 @@
+name: Cisco Trusted Root Store
+description: 
+  The Cisco Trusted Root Store supports the distribution of root certificates for over 90 products and families.
+
+website: https://www.cisco.com/security/pki/
+
+# The mail address below is publicly published on the above website
+contact: 
+
+# Using the Common CA Database
+ccadb: false
+
+# Program policy requirements
+requirements: 
+
+# Trust Lists
+trust-lists:
+  trust:
+    - purposes: [TLS, Code-Signing]
+      audit: 
+        - name: WebTrust
+      list:
+        - type: PKCS7
+          url: https://www.cisco.com/security/pki/trs/ios.p7b
+        - type: PKCS7
+          url: https://www.cisco.com/security/pki/trs/ios_core.p7b
+        - type: PKCS7
+          url: https://www.cisco.com/security/pki/trs/ios_union.p7b
