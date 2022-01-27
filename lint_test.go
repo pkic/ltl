@@ -53,6 +53,11 @@ func TestDecode(t *testing.T) {
 					return
 				}
 
+				if pki.ID != "" {
+					t.Error("ID is automatically generated and must not be specified")
+					return
+				}
+
 			})
 		case ".go", ".mod", ".sum", ".md", "":
 			return nil

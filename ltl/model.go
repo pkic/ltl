@@ -5,6 +5,7 @@ import (
 )
 
 type PKI struct {
+	ID          string `json:"id" yaml:"id" validate:"omitempty"`
 	Name        string `json:"name" yaml:"name" validate:"required"`
 	Description string `json:"description" yaml:"description"`
 

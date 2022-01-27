@@ -21,11 +21,11 @@ func main() {
 
 	validate := validator.New()
 
-	err := filepath.WalkDir("./data", func(s string, d fs.DirEntry, e error) error {
+	err := filepath.WalkDir("./data", func(s string, f fs.DirEntry, e error) error {
 		if e != nil {
 			return e
 		}
-		if d.IsDir() {
+		if f.IsDir() {
 			return nil
 		}
 
@@ -34,7 +34,7 @@ func main() {
 			return nil
 		}
 
-		switch filepath.Ext(d.Name()) {
+		switch filepath.Ext(f.Name()) {
 		case ".yaml":
 			file, err := os.Open(s)
 			if err != nil {
@@ -53,6 +53,10 @@ func main() {
 			err = validate.Struct(pki)
 			if err != nil {
 				return err
+			}
+
+			if pki.ID == "" {
+				pki.ID = strings.ToLower(strings.TrimSuffix(f.Name(), filepath.Ext(f.Name())))
 			}
 
 			result = append(result, pki)
