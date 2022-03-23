@@ -15,4 +15,4 @@ trust-lists:
         - name: WebTrust
       list:
         - type: HTML
-          url: https://github.com/openjdk/jdk/tree/master/make/data/cacerts
+          url: https://github.com/openjdk/jdk/tree/master/src/java.base/share/data/cacerts
