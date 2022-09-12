@@ -1,0 +1,70 @@
+name: Add a Trust List to the list
+description: File a bug report
+title: "Add "
+labels: ["help wanted"]
+assignees:
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Using this form you can request the addition of a Trust List to the List of Trust Lists of the PKI Consortium.
+        
+        Please check the list is currently listed on https://pkic.org/ltl or an issue for adding the list is already present.
+        
+        We also welcome requests for additing or updating Trust List through GitHub pull requests, see also the [contribution guidelines](https://github.com/pkic/ltl/blob/main/.github/CONTRIBUTING.md)
+  - type: input
+    id: name
+    attributes:
+      label: Name of the Trust List
+      description: 
+      placeholder: 
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description of the Trust List
+      description: 
+      placeholder: 
+    validations:
+      required: true
+  - type: input
+    id: website
+    attributes:
+      label: Website
+      description: A link to the trusted list program or vendor/product when no such dedicated website exists.
+      placeholder: https://www.example.com/root-program/
+    validations:
+      required: true
+  - type: input
+    id: contact
+    attributes:
+      label: Email or website address to contact privately
+      description: (do NOT include non-public contact information)
+      placeholder: 
+    validations:
+      required: false
+  - type: checkboxes
+    id: ccadb
+    attributes:
+      label: Common CA Database
+      description: Is this Trust List managed through CCADB (https://www.ccadb.org/) to manage this Trust List?
+      options:
+        - label: Yes
+        - label: No
+  - type: input
+    id: policy
+    attributes:
+      label: Policy
+      description: Link to the (certificate) policy/policies for the program
+      placeholder: https://www.example.com/policies/
+    validations:
+      required: false
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://pkic.org/code-of-conduct/)
+      options:
+        - label: I agree to follow the Code of Conduct for Participants and Publications of the PKI Consortium
+          required: true
