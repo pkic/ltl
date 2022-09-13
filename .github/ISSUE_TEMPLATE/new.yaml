@@ -2,7 +2,6 @@ name: Add a new Trust List
 description: Add a new Trust List to the List of Trust Lists of the PKI Consortium 
 title: "Add "
 labels: ["help wanted", "new"]
-assignees:
 body:
   - type: markdown
     attributes:
@@ -55,8 +54,8 @@ body:
       label: Common CA Database
       description: Is this Trust List managed through CCADB (https://www.ccadb.org/) to manage this Trust List?
       options:
-        - label: Yes
-        - label: No
+        - label: "Yes"
+        - label: "No"
 
   - type: input
     id: policy
