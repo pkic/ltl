@@ -52,10 +52,8 @@ body:
     id: ccadb
     attributes:
       label: Common CA Database
-      description: Is this Trust List managed through CCADB (https://www.ccadb.org/) to manage this Trust List?
       options:
-        - label: "Yes"
-        - label: "No"
+        - label: This Trust List is managed through CCADB (https://www.ccadb.org/)
 
   - type: input
     id: policy
