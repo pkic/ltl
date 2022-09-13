@@ -6,7 +6,7 @@ on:
       - "main"
     paths-ignore:
       - '*.md'
-      - '.github/*'
+      - '.github/**'
 jobs:
 
   publish:

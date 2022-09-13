@@ -4,7 +4,7 @@ on:
   pull_request:
     paths-ignore:
       - '*.md'
-      - '.github/*'
+      - '.github/**'
       
 jobs:
 
