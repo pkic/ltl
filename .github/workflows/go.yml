@@ -2,7 +2,10 @@ name: Go
 
 on:
   pull_request:
-
+    paths-ignore:
+      - '*.md'
+      - '.github/*'
+      
 jobs:
 
   build:
