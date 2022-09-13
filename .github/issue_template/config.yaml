@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Community Discussions
+    url: https://github.com/pkic/community/discussions
+    about: Ask and answer questions here
+  - name: List of Trust Lists
+    url: https://pkic.org/ltl/
+    about: Access the current List of Trust Lists on pkic.org/ltl
+  - name: Join the PKI Consortium
+    url: https://pkic.org/join/
+    about: There are no membership fees to join the PKI Consortium, we encourage (but do not require) all members to become a sponsor.

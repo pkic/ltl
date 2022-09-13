@@ -1,0 +1,39 @@
+name: Update or comment on an existing Trust List
+description: Update or comment on an existing Trust List on the List of Trust Lists of the PKI Consortium 
+title: "Update "
+labels: ["update"]
+assignees:
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Using this form you can provide comments or request an update to a Trust List on the List of Trust Lists of the PKI Consortium.
+
+        We also welcome requests for adding or updating Trust List through GitHub pull requests, see also the [contribution guidelines](https://github.com/pkic/ltl/blob/main/.github/CONTRIBUTING.md)
+
+  - type: input
+    id: name
+    attributes:
+      label: Name of the Trust List
+      description:
+      placeholder:
+    validations:
+      required: true
+
+  - type: textarea
+    id: feedback
+    attributes:
+      label: Your comment or request
+      description:
+      placeholder:
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://pkic.org/code-of-conduct/)
+      options:
+        - label: I agree to follow the Code of Conduct for Participants and Publications of the PKI Consortium
+          required: true

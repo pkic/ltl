@@ -1,7 +1,7 @@
-name: Add a Trust List to the list
-description: File a bug report
+name: Add a new Trust List
+description: Add a new Trust List to the List of Trust Lists of the PKI Consortium 
 title: "Add "
-labels: ["help wanted"]
+labels: ["help wanted", "new"]
 assignees:
 body:
   - type: markdown
