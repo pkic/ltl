@@ -1,6 +1,5 @@
 name: Add a new Trust List
 description: Add a new Trust List to the List of Trust Lists of the PKI Consortium 
-title: "Add "
 labels: ["help wanted", "new"]
 body:
   - type: markdown
