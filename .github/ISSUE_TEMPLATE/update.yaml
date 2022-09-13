@@ -2,7 +2,6 @@ name: Update or comment on an existing Trust List
 description: Update or comment on an existing Trust List on the List of Trust Lists of the PKI Consortium 
 title: "Update "
 labels: ["update"]
-assignees:
 body:
   - type: markdown
     attributes:
