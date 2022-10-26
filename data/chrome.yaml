@@ -7,7 +7,7 @@ description:
 website: http://g.co/chrome/root-policy
 
 # The mail address below is publicly published on the above website
-contact: chrome-root-authority-program@google.com
+contact: chrome-root-program@google.com
 
 # Using the Common CA Database
 ccadb: true
