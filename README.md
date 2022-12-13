@@ -10,5 +10,25 @@ There are many trust lists and often there is little overlap or interoperability
 
 The PKI Consortium welcomes contributions and would like to engage in related activities from other organizations or stakeholders.
 
-# Contributing to this repository 
+## Criteria for inclusion of a trust list
+
+A trust list can be included on the List of Trust List of the PKI Consortium when it defines a list of CA certificates of different entities that provide trust for the intended purpose. The list is not limited to a specific purpose, region or size, and is open to anyone to contribute. 
+
+The PKI Consortium is not endorsing any of the trust lists included and does not validate the accuracy of the data, the quality of the trust lists included or the policy framework and supervision that supports them. 
+
+A trust list can be included on the List of Trust List of the PKI Consortium when:
+- information about the trust list is publicly available on the internet 
+- the list is intended to distribute CA certificates for the use in a PKI system 
+- the list includes a CA certificate from at least two independent entities 
+
+It’s not required for a Trust List to: 
+- disclose all CA certificates included on the trust list 
+- have the inclusion covered by a policy or audit framework 
+
+## Disclaimer
+
+The PKI Consortium does not endorse any of the trust lists included in the List of Trust Lists, nor does it validate the policies or quality of these lists. The PKI Consortium makes no representations or warranties regarding the accuracy, completeness, or reliability of these trust lists, and shall not be held liable for any damages resulting from their use. The inclusion of a trust list in the List of Trust Lists does not constitute an endorsement by the PKI Consortium. It is the responsibility of the user to carefully evaluate and verify the trustworthiness of any trust list before relying on it for any purpose.
+
+## Contributing to this repository 
+
 We [welcome and love contributions](https://github.com/pkic/ltl/contribute) to this repository, please make sure you check the [contribution guidelines](.github/CONTRIBUTING.md).
