@@ -1,0 +1,11 @@
+name: Visa
+description: Visa List of Trusted Certifying Authorities
+
+website: https://developer.visa.com/developer_program
+
+trust-lists:
+  trust:
+    - purposes: [TLS]
+      list:
+        - type: HTML
+          url: https://developer.visa.com/pages/trusted_certifying_authorities
