@@ -1,0 +1,13 @@
+name: Akamai
+description: The Akamai Certificate Store is used by Akamai CDN edge servers when making connections to origin servers.
+
+website: https://github.com/akamai/akamai-certificate-store
+
+ccadb: false
+
+trust-lists:
+  trust:
+    - purposes: [TLS]
+      list:
+        - type: HTML
+          url: https://github.com/akamai/akamai-certificate-store/blob/main/akamai-certificate-store.md
