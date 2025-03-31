@@ -1,0 +1,9 @@
+id: hubject-v2g
+name: The Hubject V2G PKI
+description: >-
+  The Hubject V2G PKI (Vehicle-to-Grid Public Key Infrastructure) is a security framework designed to facilitate secure communication and authentication between electric vehicles (EVs), charging stations, and other entities within the e-mobility ecosystem. 
+  It is a critical component of the ISO 15118 standard, which governs Plug & Charge technology, allowing for seamless and secure EV charging without requiring physical payment methods or manual user authentication.
+website: https://www.hubject.com/download-pki
+ccadb: false
+trust-lists:
+  policy: https://www.hubject.com/download-pki
