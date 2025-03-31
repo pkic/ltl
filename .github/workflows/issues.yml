@@ -59,12 +59,14 @@ jobs:
       - if: ${{ steps.validate.outputs.result == 'success' }}
         name: Add or update trust-list
         uses: actions/github-script@v7
+        env:
+          ISSUE_DATA: ${{ steps.parse.outputs.json }}
         with:
           script: |
             const yaml = require('js-yaml');
 
-            // Parse the issue form data
-            const formData = JSON.parse('${{ steps.parse.outputs.json }}');
+            // Parse the issue form data using environment variable to avoid JSON parsing issues
+            const formData = JSON.parse(process.env.ISSUE_DATA);
             console.log("Parsed form data:", formData);
 
             // Generate a slug/id from the trust list name
