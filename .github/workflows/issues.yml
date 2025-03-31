@@ -34,6 +34,16 @@ jobs:
           issue-form-template: new.yaml
           workspace: ${{ github.workspace }}
 
+      # GitHub App authentication is required if you want to interact with any
+      # resources outside the scope of the repository this workflow runs in.
+      - name: Get GitHub App Token
+        id: token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.ISSUEOPS_APP_ID }}
+          private-key: ${{ secrets.ISSUEOPS_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+
       # Validate early and often! Validation should be run any time an issue is
       # interacted with, to ensure that any changes to the issue body are valid.
       - name: Validate Request
