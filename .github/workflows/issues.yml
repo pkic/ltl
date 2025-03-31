@@ -14,8 +14,8 @@ permissions:
   issues: write
 
 jobs:
-  validate:
-    name: Validate Request
+  process:
+    name: Process Issue
     runs-on: ubuntu-latest
     if: ${{ github.event.label.name == 'Process' }}
 
@@ -47,6 +47,14 @@ jobs:
         run: |
           echo "Result: ${{ steps.validate.outputs.result }}"
           echo "Errors: ${{ steps.validate.outputs.errors }}"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+    
+      - name: Install Dependencies
+        run: npm install js-yaml pretty-data
 
       - if: ${{ steps.validate.outputs.result == 'success' }}
         name: Add or update trust-list
