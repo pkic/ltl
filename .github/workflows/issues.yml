@@ -44,18 +44,19 @@ jobs:
           private-key: ${{ secrets.ISSUEOPS_APP_PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
 
-      # Validate early and often! Validation should be run any time an issue is
-      # interacted with, to ensure that any changes to the issue body are valid.
-      - name: Validate Request
+      - name: Validate Issue
         id: validate
         uses: issue-ops/validator@v3
         with:
-          add-comment: true
-          github-token: ${{ steps.token.outputs.token }}
-          issue-form-template: new.yaml
-          issue-number: ${{ github.event.issue.number }}
+          issue-form-template: example-request.yml
           parsed-issue-body: ${{ steps.parse.outputs.json }}
           workspace: ${{ github.workspace }}
+
+      - name: Output Validation Results
+        id: output
+        run: |
+          echo "Result: ${{ steps.validate.outputs.result }}"
+          echo "Errors: ${{ steps.validate.outputs.errors }}"
 
       - if: ${{ steps.validate.outputs.result == 'success' }}
         name: Add or update trust-list
