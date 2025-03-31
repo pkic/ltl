@@ -34,16 +34,6 @@ jobs:
           issue-form-template: new.yaml
           workspace: ${{ github.workspace }}
 
-      # GitHub App authentication is required if you want to interact with any
-      # resources outside the scope of the repository this workflow runs in.
-      - name: Get GitHub App Token
-        id: token
-        uses: actions/create-github-app-token@v1
-        with:
-          app-id: ${{ vars.ISSUEOPS_APP_ID }}
-          private-key: ${{ secrets.ISSUEOPS_APP_PRIVATE_KEY }}
-          owner: ${{ github.repository_owner }}
-
       - name: Validate Issue
         id: validate
         uses: issue-ops/validator@v3
