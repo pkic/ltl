@@ -9,9 +9,10 @@ on:
 #       - reopened
 
 permissions:
-  contents: read
+  contents: write 
   id-token: write
   issues: write
+  pull-requests: write
 
 jobs:
   process:
@@ -62,10 +63,11 @@ jobs:
         env:
           ISSUE_DATA: ${{ steps.parse.outputs.json }}
         with:
+          github-token: ${{ github.token }}
           script: |
             const yaml = require('js-yaml');
 
-            // Parse the issue form data using environment variable to avoid JSON parsing issues
+            // Parse the issue form data using environment variable
             const formData = JSON.parse(process.env.ISSUE_DATA);
             console.log("Parsed form data:", formData);
 
@@ -81,6 +83,26 @@ jobs:
             });
             const defaultBranch = repo.default_branch;
 
+            // Check if the file exists in the default branch
+            let fileExists = false;
+            let existingData = null;
+            
+            try {
+              const { data: fileData } = await github.rest.repos.getContent({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                path: filePath,
+                ref: defaultBranch
+              });
+              
+              fileExists = true;
+              const content = Buffer.from(fileData.content, 'base64').toString('utf8');
+              existingData = yaml.load(content);
+              console.log(`File ${filePath} exists in the repository.`);
+            } catch (error) {
+              console.log(`File ${filePath} does not exist yet.`);
+            }
+
             // Get the SHA of the latest commit on the default branch
             const { data: refData } = await github.rest.git.getRef({
               owner: context.repo.owner,
@@ -88,26 +110,6 @@ jobs:
               ref: `heads/${defaultBranch}`
             });
             const sha = refData.object.sha;
-
-            // Check if branch already exists
-            try {
-              await github.rest.git.getRef({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                ref: `heads/${branchName}`
-              });
-              
-              // Branch exists, delete it
-              await github.rest.git.deleteRef({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                ref: `heads/${branchName}`
-              });
-              console.log(`Deleted existing branch: ${branchName}`);
-            } catch (error) {
-              // Branch doesn't exist, which is fine
-              console.log(`Branch ${branchName} does not exist yet`);
-            }
 
             // Create a new branch
             await github.rest.git.createRef({
@@ -117,75 +119,79 @@ jobs:
               sha: sha
             });
             console.log(`Created branch: ${branchName}`);
-
-            // Create the PKI data structure according to model.go
-            const pkiData = {
-              id: id,
-              name: formData.name,
-              description: formData.description,
-              website: formData.website,
-              contact: formData.contact || "",
-              ccadb: formData.ccadb && formData.ccadb.length > 0,
-              "legal-context": "",
-              audit: [],
-              requirements: [],
-              discussions: [],
-              issues: [],
-              "trust-lists": {
-                info: "",
-                policy: formData.policy || "",
-                trust: []
-              }
-            };
-
-            const yamlContent = yaml.dump(pkiData);
-            console.log(`Generated YAML content for ${id}`);
-
-            // Create or update the file
-            try {
-              // Try to get the file first to see if it exists
-              const { data: fileContent } = await github.rest.repos.getContent({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                path: filePath,
-                ref: branchName
-              });
               
-              // File exists, update it
-              await github.rest.repos.createOrUpdateFileContents({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                path: filePath,
-                message: `Update trust list: ${formData.name}`,
-                content: Buffer.from(yamlContent).toString('base64'),
-                branch: branchName,
-                sha: fileContent.sha
-              });
-
-              console.log(`Updated file: ${filePath}`);
-
-            } catch (error) {
-              // File doesn't exist, create it
-              await github.rest.repos.createOrUpdateFileContents({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                path: filePath,
-                message: `Add new trust list: ${formData.name}`,
-                content: Buffer.from(yamlContent).toString('base64'),
-                branch: branchName
-              });
-
-              console.log(`Created file: ${filePath}`);
+            // Create or update the PKI data structure
+            let pkiData;
+            
+            if (fileExists && existingData) {
+              // Merge the new data with existing data
+              pkiData = {
+                ...existingData,
+                name: formData.name,
+                description: formData.description,
+                website: formData.website
+              };
+              
+              // Update optional fields only if provided in the form
+              if (formData.contact) pkiData.contact = formData.contact;
+              if (formData.ccadb && formData.ccadb.selected && formData.ccadb.selected.length > 0) {
+                pkiData.ccadb = true;
+              }
+              
+              // Update policy if provided
+              if (formData.policy) {
+                pkiData["trust-lists"].policy = formData.policy;
+              }
+            } else {
+              // Create new data structure according to model.go
+              pkiData = {
+                id: id,
+                name: formData.name,
+                description: formData.description,
+                website: formData.website,
+                contact: formData.contact || "",
+                ccadb: formData.ccadb && formData.ccadb.selected && formData.ccadb.selected.length > 0,
+                "legal-context": "",
+                audit: [],
+                requirements: [],
+                discussions: [],
+                issues: [],
+                "trust-lists": {
+                  info: "",
+                  policy: formData.policy || "",
+                  trust: []
+                }
+              };
             }
 
+            const yamlContent = yaml.dump(pkiData);
+            
+            // Create or update file in the branch
+            const commitMessage = fileExists 
+              ? `Update trust list: ${formData.name}` 
+              : `Add new trust list: ${formData.name}`;
+              
+            await github.rest.repos.createOrUpdateFileContents({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              path: filePath,
+              message: commitMessage,
+              content: Buffer.from(yamlContent).toString('base64'),
+              branch: branchName
+            });
+            
             // Create a pull request
+            const prTitle = fileExists 
+              ? `Update trust list: ${formData.name}` 
+              : `Add trust list: ${formData.name}`;
+              
             const { data: pr } = await github.rest.pulls.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: `Add trust list: ${formData.name}`,
+              title: prTitle,
               head: branchName,
               base: defaultBranch,
-              body: `This PR adds the trust list "${formData.name}" as requested in issue #${context.issue.number}.
+              body: `This PR ${fileExists ? 'updates' : 'adds'} the trust list "${formData.name}" as requested in issue #${context.issue.number}.
 
             Website: ${formData.website}
             ${formData.policy ? `Policy: ${formData.policy}` : ''}
@@ -195,15 +201,11 @@ jobs:
 
             Closes #${context.issue.number}`
             });
-
-            console.log(`Created PR: ${pr.html_url}`);
-
+            
             // Add a comment on the issue with a link to the PR
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              body: `I've created a pull request to add this trust list: ${pr.html_url}`
+              body: `I've created a pull request to ${fileExists ? 'update' : 'add'} this trust list: ${pr.html_url}`
             });
-
-            console.log(`Added comment to issue #${context.issue.number}`);
