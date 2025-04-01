@@ -145,26 +145,60 @@ jobs:
             } else {
               // Create new data structure according to model.go
               pkiData = {
-                id: id,
                 name: formData.name,
                 description: formData.description,
                 website: formData.website,
                 contact: formData.contact || "",
                 ccadb: formData.ccadb && formData.ccadb.selected && formData.ccadb.selected.length > 0,
                 "legal-context": "",
-                audit: [],
-                requirements: [],
-                discussions: [],
-                issues: [],
+                audit: [], // Array of Audit objects
+                requirements: [], // Array of Source objects
+                discussions: [], // Array of Source objects 
+                issues: [], // Array of Source objects
                 "trust-lists": {
                   info: "",
                   policy: formData.policy || "",
-                  trust: []
+                  trust: [
+                    {
+                      purposes: [], // Array of strings
+                      requirements: [], // Array of Source objects
+                      discussions: [], // Array of Source objects
+                      issues: [], // Array of Source objects
+                      audit: [], // Array of Audit objects
+                      list: [] // Array of Source objects
+                    }
+                  ]
                 }
               };
             }
 
-            const yamlContent = yaml.dump(pkiData);
+            // Add comments to the YAML file
+            const addComments = (obj) => {
+              const comments = {
+                basic_info: '# Basic Trust List Information',
+                verification: '\n# Verification and Audit Information',
+                community: '\n# Community References',
+                trust_lists: '\n# Trust List Details'
+              };
+
+              const result = {};
+              for (const [key, value] of Object.entries(obj)) {
+                if (comments[key]) {
+                  result[comments[key]] = null; // Insert comment as a key with null value
+                }
+                result[key] = value;
+              }
+              return result;
+            };
+
+            // Format the YAML with comments and proper spacing
+            const yamlContent = yaml.dump(addComments(pkiData), {
+              lineWidth: -1,  // Don't wrap lines
+              noRefs: true,   // Don't use aliases
+              quotingType: '"',
+              forceQuotes: false,
+              sortKeys: false // Preserve key order
+            });
             
             // Create or update file in the branch
             const commitMessage = fileExists 
